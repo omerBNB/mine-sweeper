@@ -150,7 +150,7 @@ function timer() {
         // mlSeconds length
         ms = ms.substring(ms.length - 3, ms.length)
         //Rendering 
-        timer.innerText = `\n ${secs}:${ms}`
+        timer.innerText = `${secs}:${ms}`
     }, 100)
 }
 

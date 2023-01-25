@@ -9,11 +9,23 @@
 </head>
 <body onload="onInit()">
     <h1>Mine Sweeper</h1>
+    <h3></h3>
+    <div class="timer">00:00</div>
 
-
+    <span class="smiley" onclick="onInit()"></span> 
+<div class="btns">
+    <button onclick="levels(this)">Easy</button>
+    <button onclick="levels(this)">Hard</button>
+    <button onclick="levels(this)">Extreme</button>
+</div>
    <table class="board">
 
    </table>
+
+   <div class="modal">
+    <h2 class="user-msg">You Won!</h2>
+    <button class="restart-btn" onclick="onInit()">Restart</button>
+  </div>
 
     <script src="js/utils.js"></script>
     <script src="js/game.js"></script>

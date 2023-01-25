@@ -7,24 +7,83 @@ body{
     background-color: rgb(143, 219, 255);
 }
 
+.timer {
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    background-color: #333333;
+    width: 90px;
+    height: 60px;
+    border-radius: 10px;
+    color: #ffffff;
+    /* font-size: 45px; */
+    text-align: center;
+    margin: auto;
+    line-height: 60px;
+    margin-bottom: 15px;
+}
+
+.smiley {
+    cursor: pointer;
+    font-size: 30px;
+}
+
+.bombscounter{
+    margin-right: 400px;
+}
+
+.btns{
+margin-top: 10px;}
+
+button {
+    border-radius: 10px;
+    border: 1px solid black;
+    width: 75px;
+    height: 25px;
+    font-size: 15px;
+    background-color: rgb(142, 156, 196);
+    cursor: pointer;
+    font-family:Arial, Helvetica, sans-serif
+}
+
 table{
         background-color: black;
         height: 75px;
         width: 320px;
         margin: auto;
         border-radius: 10px;
+        margin-top: 15px;
 }
 
 
 th, td{
     border: 1px solid;
     margin: auto;
-    height: 50px;
+    height: 30px;
     width: 80px;
-    background-color: #fff;
+    cursor: pointer;
+    background-color:rgb(255, 255, 255)
 }
 
 footer{
     margin-top: 10px;
     font-size: 25px;
 }
+
+.revealed{
+    background-color: rgb(228, 225, 225);
+}
+
+.modal {
+    display: none;
+    background-color: black;
+    border: 5px solid white;
+    width: 300px;
+    padding: 20px;
+    position: absolute;
+    top: 300px;
+    left: calc(50% - 175px);
+    color: aliceblue;
+    margin: auto;
+}
+
