@@ -1,0 +1,30 @@
+* {
+    box-sizing: border-box;
+}
+
+body{
+    text-align: center;
+    background-color: rgb(143, 219, 255);
+}
+
+table{
+        background-color: black;
+        height: 75px;
+        width: 320px;
+        margin: auto;
+        border-radius: 10px;
+}
+
+
+th, td{
+    border: 1px solid;
+    margin: auto;
+    height: 50px;
+    width: 80px;
+    background-color: #fff;
+}
+
+footer{
+    margin-top: 10px;
+    font-size: 25px;
+}
