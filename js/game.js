@@ -128,17 +128,17 @@ function onCellClicked(elloci, ellocj) {
     var negs = setMinesNegsCount(elloci, ellocj, gBoard)
     currLocation.minesAroundCount = negs
     var elCell = document.querySelector(`.cell-${elloci}-${ellocj}`)
-    if (negs > 0 && currLocation.gameElement !== MINE) {
+    if (negs > 0 && currLocation.gameElement !== MINE && elCell.style.backgroundColor !== 'rgb(228, 225, 225)') {
         gGame.shownCount++
         currLocation.gameElement = negs
         elCell.innerText = currLocation.gameElement
-        elCell.style.backgroundColor = 'rgb(228, 225, 225'
+        elCell.style.backgroundColor = 'rgb(228, 225, 225)'
         // setTimeout(() => { elH2.innerText = '😁' }, 300)
     }
     if (negs === 0 && currLocation.gameElement !== MINE) {
         revealNegs(elloci, ellocj, gBoard)
-        elCell.innerText = currLocation.gameElement
-        elCell.style.backgroundColor = 'rgb(228, 225, 225'
+        // elCell.innerText = currLocation.gameElement
+        // elCell.style.backgroundColor = 'rgb(228, 225, 225)'
         // setTimeout(() => { elH2.innerText = '😁' }, 300)
     }
 
@@ -182,16 +182,23 @@ function revealNegs(cellI, cellJ, board) {
             currnegs.push(gBoard[i][j])
         }
     }
+    var elCell1 = document.querySelector(`.cell-${cellI}-${cellJ}`)
+            console.log('elCell1',elCell1)
+            if (elCell1.style.backgroundColor !=='rgb(228, 225, 225)') {
+                elCell1.innerText = gBoard[cellI][cellJ].gameElement
+                elCell1.style.backgroundColor = 'rgb(228, 225, 225)'
+                gGame.shownCount++
+            }
     for (let i = 0; i < negsCount; i++) {
         var currentnegRow = currnegs[i].location.i;
         var currentnegCol = currnegs[i].location.j;
         var newnegs = setMinesNegsCount(currentnegRow, currentnegCol, board)
         var elCell = document.querySelector(`.cell-${currentnegRow}-${currentnegCol}`)
-        if (newnegs === 0) {
+        if (newnegs === 0 && elCell.style.backgroundColor !=='rgb(228, 225, 225)') {
             elCell.innerText = gBoard[currentnegRow][currentnegCol].gameElement
             elCell.style.backgroundColor = 'rgb(228, 225, 225)'
             gGame.shownCount++
-        } else {
+        } else if(elCell.style.backgroundColor !=='rgb(228, 225, 225)'){
             elCell.innerText = newnegs
             elCell.style.backgroundColor = 'rgb(228, 225, 225)'
             gGame.shownCount++
