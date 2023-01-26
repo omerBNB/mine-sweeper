@@ -25,9 +25,9 @@ var gLevel = {
 var gBoard
 
 function onInit() {
+    resetgame()
     gBoard = buildBoard(gLevel.size)
     renderBoard(gBoard)
-    resetgame()
 }
 var sound = new Audio('media/Glory.mp3')
 function playSound() {
@@ -139,7 +139,7 @@ function onCellClicked(elloci, ellocj) {
             elHint.style.display = 'none'
         }
         gGame.hintsCount--
-        console.log('gGame.hintsCount',gGame.hintsCount)
+        // console.log('gGame.hintsCount',gGame.hintsCount)
         gGame.hintOnUse = false
     }
     var negs = setMinesNegsCount(elloci, ellocj, gBoard)
@@ -170,7 +170,7 @@ function onCellClicked(elloci, ellocj) {
             elHint.style.display = 'none'
         }
         gGame.hintsCount--
-        console.log('gGame.hintsCount',gGame.hintsCount)
+        // console.log('gGame.hintsCount',gGame.hintsCount)
         gGame.hintOnUse = false
     }
 
@@ -186,11 +186,11 @@ function onCellClicked(elloci, ellocj) {
             elHint.style.display = 'none'
         }
         gGame.hintsCount--
-        console.log('gGame.hintsCount',gGame.hintsCount)
+        // console.log('gGame.hintsCount',gGame.hintsCount)
         gGame.hintOnUse = false
 
     }
-    console.log('gGame.shownCount', gGame.shownCount)
+    // console.log('gGame.shownCount', gGame.shownCount)
     checkIsVinner()
     if (gGame.isVinner) {
         gameOver()
@@ -214,7 +214,7 @@ function placeflag(td, currcelli, currcellj) {
     } else {
         gGame.markedCount--
     }
-    console.log('gGame.markedCount', gGame.markedCount)
+    // console.log('gGame.markedCount', gGame.markedCount)
 }
 
 function setMinesNegsCount(cellI, cellJ, board) {
@@ -246,7 +246,7 @@ function revealNegs(cellI, cellJ, board) {
         }
     }
     var elCell1 = document.querySelector(`.cell-${cellI}-${cellJ}`)
-    console.log('elCell1', elCell1)
+    // console.log('elCell1', elCell1)
     if (!gBoard[cellI][cellJ].isShown) {
         gBoard[cellI][cellJ].isShown = true
         elCell1.innerText = gBoard[cellI][cellJ].gameElement
@@ -397,6 +397,7 @@ function resetgame() {
     gGame.isVinner = false
     gGame.lives = 3
     gGame.hintsCount = 3
+    resetHints(gGame.hintsCount)
     gGame.shownCount = 0
     var elSpan = document.querySelector(`span`)
     elSpan.innerText = '😁'
@@ -447,4 +448,13 @@ function useHint(negCount, rowIdx, colIdx) {
         gGame.hintOnUse = false
         gBoard[rowIdx][colIdx].isShown = false
     }, 1000)
+}
+
+function resetHints(hintsAmount){
+    var hint 
+for (let i = 0; i < hintsAmount; i++) {
+    hint = document.querySelector(`.hint${i+1}`)
+    hint.innerText = '💡'
+    hint.style.display = 'inline-block'
+}
 }

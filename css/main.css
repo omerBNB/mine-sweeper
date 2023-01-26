@@ -5,8 +5,17 @@
 body {
     text-align: center;
     background-color: rgb(143, 219, 255);
+    background-image: url("/background-banner.jpg");
 }
 
+h1{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border: 2px solid aliceblue;
+    border-radius: 10px;
+    width: 300px;
+    padding: 10px;
+    margin: auto;
+}
 .timer {
     font-size: 25px;
     display: flex;
@@ -63,22 +72,26 @@ body {
 
 button {
     border-radius: 10px;
-    border: 1px solid black;
-    width: 75px;
+    border: 2px solid black;
+    /* padding: 10px; */
+    width: 85px;
     height: 25px;
     font-size: 15px;
-    background-color: rgb(142, 156, 196);
+    line-height: 15px;
+    background-color: rgb(221, 192, 64);
     cursor: pointer;
-    font-family: Arial, Helvetica, sans-serif
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
 }
 
 table {
     background-color: black;
-    height: 75px;
+    height: 200px;
     width: 320px;
     margin: auto;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     margin-top: 15px;
+    margin-bottom: 20px;
 }
 
 
@@ -90,13 +103,19 @@ th, td {
     cursor: pointer;
     background-color: rgb(255, 255, 255);
     font-size: 20px;
-    font-weight: bold;
-    
+    font-weight: bold;    
 }
 
 footer {
     margin-top: 10px;
     font-size: 25px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-radius: 10px;
+    width: 300px;
+    padding: 10px;
+    margin: auto;
+    font-weight: bold;
+
 }
 
 .revealed {
