@@ -5,7 +5,7 @@
 body {
     text-align: center;
     background-color: rgb(143, 219, 255);
-    background: url("/img/background-banner.jpg");
+    /* background: url("/img/background-banner.jpg"); */
 }
 
 h1{
