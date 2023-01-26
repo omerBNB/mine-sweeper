@@ -66,17 +66,7 @@ h1{
 
 .safeclicks{
     cursor: pointer;
-    font-size: 15px;
-    margin-left: auto;
-    margin-bottom: 20px;
-    margin-top: 15px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    border: 2px solid aliceblue;
-    border-radius: 10px;
-    width: 300px;
-    padding: 10px;
-    margin: auto;
-    font-weight: bold;
+    font-size: 30px;
 }
 
 .usedhint {

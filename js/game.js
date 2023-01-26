@@ -26,8 +26,8 @@ var gBoard
 
 function onInit() {
     gBoard = buildBoard(gLevel.size)
-    renderBoard(gBoard)
     resetgame()
+    renderBoard(gBoard)
 }
 var sound = new Audio('media/Glory.mp3')
 function playSound() {
@@ -94,8 +94,6 @@ function renderBoard(board) {
     noRightClick.addEventListener("contextmenu", e => e.preventDefault());
 }
 
-
-
 function onCellClicked(elloci, ellocj) {
     if (!gGame.isOn) {
         return
@@ -103,6 +101,10 @@ function onCellClicked(elloci, ellocj) {
     if (gBoard[elloci][ellocj].isMarked) {
         return
     }
+    // if (!gGame.isFirstclick) {
+    //     startgame()
+    //     timer()
+    // }
     if (!gGame.isFirstclick) {
         startgame()
         timer()
@@ -191,7 +193,7 @@ function onCellClicked(elloci, ellocj) {
         gGame.hintOnUse = false
 
     }
-    console.log('gBoard[elloci][ellocj].isShhown',gBoard[elloci][ellocj].isShhown)
+    // console.log('gBoard[elloci][ellocj].isShhown',gBoard[elloci][ellocj].isShhown)
     // console.log('gGame.shownCount', gGame.shownCount)
     checkIsVinner()
     if (gGame.isVinner) {
@@ -413,17 +415,6 @@ function resetgame() {
     clearInterval(gTimerInterval)
 }
 
-// function createHints(hintsAmount){
-//     var hintLeft = []
-//     for (let i = 0; i < hintsAmount; i++) {
-//         var hint = '💡'
-//         hintLeft += hint
-//     }
-//     var elHint = document.querySelector('.hint1')
-//     elHint.innerText = hintLeft
-//     return hintLeft
-// }
-
 function getHint(spechint) {
     spechint.classList.toggle('usedhint')
     if (spechint.classList.length === 2) {
@@ -476,12 +467,13 @@ function countNegs(cellI, cellJ, board) {
 }
 
 function safeClicks(elSafeclick) {
-    var randpos = getEmptypos()
+    var randpos = getEmptySafeClick()
+    console.log('randpos',randpos)
     var i = randpos[0]
     var j = randpos[1]
     var elCell = document.querySelector(`.cell-${i}-${j}`)
-    if(elCell.style.backgroundColor === 'rgb(228, 225, 225)' && gBoard[i][j].gameElement !== MINE){
-        safeClicks(elSafeclick)
+    if(elCell.style.backgroundColor === 'rgb(228, 225, 225)'){
+        return
     }
     
     var negCount = countNegs(i,j,gBoard)
@@ -495,14 +487,34 @@ function safeClicks(elSafeclick) {
         elCell.innerText = ''
         elCell.style.backgroundColor = 'rgb(255, 255, 255)'
         gBoard[i][j].isShown = false
-    }, 1000)
+    }, 700)
     elSafeclick.style.display = 'none'
 }
 
 function resetSafeClicks(){
-    var safeclick = '🛟'
+    // var safeclick = '🛟'
     for (let i = 1; i <= 3; i++) {
         var elSafeclick = document.querySelector(`.safe${i}`)
-        elSafeclick.innerText = safeclick
+        elSafeclick.style.display = 'inline-block'
     }
+}
+
+function getEmptySafeClick() {
+    var emptypos = []
+    for (let i = 0; i < gBoard.length; i++) {
+        var currRow = gBoard[i];
+        // console.log('currRow',currRow)
+        for (let j = 0; j < gBoard.length; j++) {
+            var currCell = gBoard[i][j].gameElement
+            console.log('example',currCell)
+            var elCell = document.querySelector(`.cell-${i}-${j}`)
+            if (!currCell && elCell.style.backgroundColor !== 'rgb(255, 255, 255)' && currCell.gameElement !== MINE) {
+                emptypos.push([i, j])
+            }
+        }
+    }
+    if (!gBoard.length) return null
+    var randidx = getRandomIntInclusive(0, emptypos.length - 1)
+    var randpos = emptypos[randidx]
+    return randpos
 }
