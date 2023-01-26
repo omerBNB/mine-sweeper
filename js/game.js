@@ -15,6 +15,7 @@ var gGame = {
     isVinner: false,
     hintsCount: 3,
     hintOnUse: false,
+    minesCounter: 3,
 }
 
 var gLevel = {
@@ -202,6 +203,7 @@ function onCellClicked(elloci, ellocj) {
 }
 
 function placeflag(td, currcelli, currcellj) {
+    var minesCounter = document.querySelector(`.minescounter1`)
     if (gGame.markedCount === gLevel.mines && !gBoard[currcelli][currcellj].isMarked) {
         return
     } else if (gGame.markedCount === gLevel.mines && gBoard[currcelli][currcellj].isMarked) {
@@ -215,9 +217,12 @@ function placeflag(td, currcelli, currcellj) {
     gBoard[currcelli][currcellj].isMarked = (gBoard[currcelli][currcellj].isMarked) ? false : true
     if (gBoard[currcelli][currcellj].isMarked) {
         gGame.markedCount++
+        gGame.minesCounter--
     } else {
         gGame.markedCount--
+        gGame.minesCounter++
     }
+    minesCounter.innerText = gGame.minesCounter
     // console.log('gGame.markedCount', gGame.markedCount)
 }
 
@@ -364,6 +369,7 @@ function levels(btn) {
             size: 4,
             mines: 3,
         }
+        gGame.minesCounter = 3
         elTable.style.width = '320px'
     }
     if (btn.innerText === 'Hard') {
@@ -371,15 +377,17 @@ function levels(btn) {
             size: 8,
             mines: 14,
         }
-        elTable.style.width = '380px'
+        gGame.minesCounter = 14
+        elTable.style.width = '480px'
     }
     if (btn.innerText === 'Extreme') {
         gLevel = {
             size: 12,
             mines: 32,
         }
-        elTable.style.width = '450px'
-    }
+        gGame.minesCounter = 32
+        elTable.style.width = '700px'
+    } 
     elTimer.innerText = '00:00'
     gGame.isFirstclick = false
     clearInterval(gTimerInterval)
@@ -398,6 +406,15 @@ function resetgame() {
     elModal.style.display = 'none'
     var elTimer = document.querySelector(`.timer`)
     elTimer.innerText = '00:00'
+    var elMinesCounter = document.querySelector(`.minescounter1`)
+    if(gBoard.length === 4){
+        gGame.minesCounter = 3
+    }else if (gBoard.length === 8){
+        gGame.minesCounter = 14
+    }else if (gBoard.length === 12){
+        gGame.minesCounter = 32
+    }
+    elMinesCounter.innerText = gGame.minesCounter
     gGame.isOn = true
     gGame.isVinner = false
     gGame.lives = 3
@@ -468,7 +485,7 @@ function countNegs(cellI, cellJ, board) {
 
 function safeClicks(elSafeclick) {
     var randpos = getEmptySafeClick()
-    console.log('randpos',randpos)
+    // console.log('randpos',randpos)
     var i = randpos[0]
     var j = randpos[1]
     var elCell = document.querySelector(`.cell-${i}-${j}`)
@@ -506,9 +523,8 @@ function getEmptySafeClick() {
         // console.log('currRow',currRow)
         for (let j = 0; j < gBoard.length; j++) {
             var currCell = gBoard[i][j].gameElement
-            console.log('example',currCell)
             var elCell = document.querySelector(`.cell-${i}-${j}`)
-            if (!currCell && elCell.style.backgroundColor !== 'rgb(255, 255, 255)' && currCell.gameElement !== MINE) {
+            if (!gBoard[i][j].isMarked && !currCell && elCell.style.backgroundColor !== 'rgb(255, 255, 255)' && currCell.gameElement !== MINE && elCell.style.backgroundColor !== 'rgb(228, 225, 225)') {
                 emptypos.push([i, j])
             }
         }

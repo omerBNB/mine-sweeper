@@ -9,17 +9,17 @@
 </head>
 <body onload="onInit()">
     <h1>Mine Sweeper</h1>
-    <h3></h3>
     <div class="timer">00:00</div>
     
+    <h3 class="lives"></h3>
     <span class="smiley" onclick="onInit()"></span>
-    
     <div class="hints">
         <h3>Hints</h3>
-<span onclick="getHint(this)" class="hint1">💡</span>
-<span onclick="getHint(this)" class="hint2">💡</span>
-<span onclick="getHint(this)" class="hint3">💡</span>
+        <span onclick="getHint(this)" class="hint1">💡</span>
+        <span onclick="getHint(this)" class="hint2">💡</span>
+        <span onclick="getHint(this)" class="hint3">💡</span>
     </div> 
+    <span class="minescounter">Mines Counter<span class="minescounter1"></span></span>
     <div class="safeclicks">
 <span onclick="safeClicks(this)" class="safe1">🛟</span>
 <span onclick="safeClicks(this)" class="safe2">🛟</span>
