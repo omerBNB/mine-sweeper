@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 
-body{
+body {
     text-align: center;
     background-color: rgb(143, 219, 255);
 }
@@ -28,12 +28,38 @@ body{
     font-size: 30px;
 }
 
-.bombscounter{
+.hints {
+    margin-left: auto;
+    margin-bottom: 20px;
+    margin-top: 15px;
+}
+
+.hint1 {
+    cursor: pointer;
+    font-size: 30px;
+}
+
+.hint2 {
+    cursor: pointer;
+    font-size: 30px;
+}
+
+.hint3 {
+    cursor: pointer;
+    font-size: 30px;
+}
+
+.usedhint {
+    background-color: yellow;
+}
+
+.bombscounter {
     margin-right: 400px;
 }
 
-.btns{
-margin-top: 10px;}
+.btns {
+    margin-top: 10px;
+}
 
 button {
     border-radius: 10px;
@@ -43,34 +69,37 @@ button {
     font-size: 15px;
     background-color: rgb(142, 156, 196);
     cursor: pointer;
-    font-family:Arial, Helvetica, sans-serif
+    font-family: Arial, Helvetica, sans-serif
 }
 
-table{
-        background-color: black;
-        height: 75px;
-        width: 320px;
-        margin: auto;
-        border-radius: 10px;
-        margin-top: 15px;
+table {
+    background-color: black;
+    height: 75px;
+    width: 320px;
+    margin: auto;
+    border-radius: 10px;
+    margin-top: 15px;
 }
 
 
-th, td{
-    border: 1px solid;
+th, td {
+    border: 1px solid black;
     margin: auto;
     height: 30px;
     width: 80px;
     cursor: pointer;
-    background-color:rgb(255, 255, 255)
+    background-color: rgb(255, 255, 255);
+    font-size: 20px;
+    font-weight: bold;
+    
 }
 
-footer{
+footer {
     margin-top: 10px;
     font-size: 25px;
 }
 
-.revealed{
+.revealed {
     background-color: rgb(228, 225, 225);
 }
 
@@ -86,4 +115,3 @@ footer{
     color: aliceblue;
     margin: auto;
 }
-

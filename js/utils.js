@@ -87,7 +87,7 @@ function countNegs(cellI, cellJ, board) {
 }
 
 function playSound() {
-    var sound = new Audio('sound/pop.mp3')
+    var sound = new Audio('media/Glory.mp3')
     sound.play()
 }
 

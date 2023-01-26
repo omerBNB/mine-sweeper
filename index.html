@@ -11,14 +11,21 @@
     <h1>Mine Sweeper</h1>
     <h3></h3>
     <div class="timer">00:00</div>
+    
+    <span class="smiley" onclick="onInit()"></span>
+    
+    <div class="hints">
+<span onclick="getHint(this)" class="hint1">💡</span>
+<span onclick="getHint(this)" class="hint2">💡</span>
+<span onclick="getHint(this)" class="hint3">💡</span>
+    </div> 
 
-    <span class="smiley" onclick="onInit()"></span> 
 <div class="btns">
     <button onclick="levels(this)">Easy</button>
     <button onclick="levels(this)">Hard</button>
     <button onclick="levels(this)">Extreme</button>
 </div>
-   <table class="board">
+   <table id="td"class="board">
 
    </table>
 
