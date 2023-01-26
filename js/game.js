@@ -25,9 +25,9 @@ var gLevel = {
 var gBoard
 
 function onInit() {
-    resetgame()
     gBoard = buildBoard(gLevel.size)
     renderBoard(gBoard)
+    resetgame()
 }
 var sound = new Audio('media/Glory.mp3')
 function playSound() {
@@ -107,6 +107,7 @@ function onCellClicked(elloci, ellocj) {
         startgame()
         timer()
     }
+    
     var currLocation = gBoard[elloci][ellocj]
     var elH2 = document.querySelector(`span`)
     elH2.innerText = '😯'
@@ -132,7 +133,7 @@ function onCellClicked(elloci, ellocj) {
         if (gGame.lives === 0) {
             gameOver()
         }
-    }else if(currLocation.gameElement === MINE && gGame.hintOnUse){
+    } else if (currLocation.gameElement === MINE && gGame.hintOnUse) {
         useHint(negs, elloci, ellocj)
         for (let i = 0; i < 1; i++) {
             var elHint = document.querySelector(`.hint${gGame.hintsCount}`)
@@ -151,20 +152,20 @@ function onCellClicked(elloci, ellocj) {
         currLocation.gameElement = negs
         elCell.innerText = currLocation.gameElement
         elCell.style.backgroundColor = 'rgb(228, 225, 225)'
-        if(negs === 1){
+        if (negs === 1) {
             elCell.style.color = 'blue'
-        }else if(negs === 2){
+        } else if (negs === 2) {
             elCell.style.color = 'green'
-        }else if(negs === 3){
+        } else if (negs === 3) {
             elCell.style.color = 'red'
-        }else if(negs === 4){
+        } else if (negs === 4) {
             elCell.style.color = 'black'
-        }else if(negs === 5){
+        } else if (negs === 5) {
             elCell.style.color = 'yellow'
         }
         // setTimeout(() => { elH2.innerText = '😁' }, 300)
     } else if (negs > 0 && currLocation.gameElement !== MINE && !currLocation.isShown && gGame.hintOnUse) {
-         useHint(negs, elloci, ellocj)
+        useHint(negs, elloci, ellocj)
         for (let i = 0; i < 1; i++) {
             var elHint = document.querySelector(`.hint${gGame.hintsCount}`)
             elHint.style.display = 'none'
@@ -190,6 +191,7 @@ function onCellClicked(elloci, ellocj) {
         gGame.hintOnUse = false
 
     }
+    console.log('gBoard[elloci][ellocj].isShhown',gBoard[elloci][ellocj].isShhown)
     // console.log('gGame.shownCount', gGame.shownCount)
     checkIsVinner()
     if (gGame.isVinner) {
@@ -269,15 +271,15 @@ function revealNegs(cellI, cellJ, board) {
             elCell.innerText = newnegs
             elCell.style.backgroundColor = 'rgb(228, 225, 225)'
             gGame.shownCount++
-            if(newnegs === 1){
+            if (newnegs === 1) {
                 elCell.style.color = 'blue'
-            }else if(newnegs === 2){
+            } else if (newnegs === 2) {
                 elCell.style.color = 'green'
-            }else if(newnegs === 3){
+            } else if (newnegs === 3) {
                 elCell.style.color = 'red'
-            }else if(newnegs === 4){
+            } else if (newnegs === 4) {
                 elCell.style.color = 'black'
-            }else if(newnegs === 5){
+            } else if (newnegs === 5) {
                 elCell.style.color = 'yellow'
             }
         }
@@ -294,7 +296,7 @@ function gameOver() {
         var elH2 = document.querySelector(`span`)
         elH2.innerText = '😎'
         sound.pause()
-        var winnersound =new Audio('media/winner.mp3')
+        var winnersound = new Audio('media/winner.mp3')
         winnersound.play()
     } else {
         sound.pause()
@@ -379,6 +381,7 @@ function levels(btn) {
     elTimer.innerText = '00:00'
     gGame.isFirstclick = false
     clearInterval(gTimerInterval)
+    resetgame()
     onInit()
 }
 
@@ -398,6 +401,7 @@ function resetgame() {
     gGame.lives = 3
     gGame.hintsCount = 3
     resetHints(gGame.hintsCount)
+    resetSafeClicks()
     gGame.shownCount = 0
     var elSpan = document.querySelector(`span`)
     elSpan.innerText = '😁'
@@ -450,11 +454,55 @@ function useHint(negCount, rowIdx, colIdx) {
     }, 1000)
 }
 
-function resetHints(hintsAmount){
-    var hint 
-for (let i = 0; i < hintsAmount; i++) {
-    hint = document.querySelector(`.hint${i+1}`)
-    hint.innerText = '💡'
-    hint.style.display = 'inline-block'
+function resetHints(hintsAmount) {
+    var hint
+    for (let i = 0; i < hintsAmount; i++) {
+        hint = document.querySelector(`.hint${i + 1}`)
+        hint.innerText = '💡'
+        hint.style.display = 'inline-block'
+    }
 }
+
+function countNegs(cellI, cellJ, board) {
+    var negsCount = 0
+    for (var i = cellI - 1; i <= cellI + 1; i++) {
+        if (i < 0 || i >= board.length) continue
+        for (var j = cellJ - 1; j <= cellJ + 1; j++) {
+            if (j < 0 || j >= board[i].length) continue
+            if (i === cellI && j === cellJ) continue
+        }
+    }
+    return negsCount
+}
+
+function safeClicks(elSafeclick) {
+    var randpos = getEmptypos()
+    var i = randpos[0]
+    var j = randpos[1]
+    var elCell = document.querySelector(`.cell-${i}-${j}`)
+    if(elCell.style.backgroundColor === 'rgb(228, 225, 225)' && gBoard[i][j].gameElement !== MINE){
+        safeClicks(elSafeclick)
+    }
+    
+    var negCount = countNegs(i,j,gBoard)
+    if (negCount === 0) {
+        elCell.style.backgroundColor = 'rgb(228, 225, 225)'
+    } else if (negCount > 0) {
+        elCell.innerText = negCount
+        elCell.style.backgroundColor = 'rgb(228, 225, 225)'
+    } 
+    setTimeout(() => {
+        elCell.innerText = ''
+        elCell.style.backgroundColor = 'rgb(255, 255, 255)'
+        gBoard[i][j].isShown = false
+    }, 1000)
+    elSafeclick.style.display = 'none'
+}
+
+function resetSafeClicks(){
+    var safeclick = '🛟'
+    for (let i = 1; i <= 3; i++) {
+        var elSafeclick = document.querySelector(`.safe${i}`)
+        elSafeclick.innerText = safeclick
+    }
 }

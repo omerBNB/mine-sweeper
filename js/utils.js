@@ -77,9 +77,9 @@ function renderBoard(board) {
 function countNegs(cellI, cellJ, board) {
     var negsCount = 0
     for (var i = cellI - 1; i <= cellI + 1; i++) {
-        if (i < 0 || i >= mat.length) continue
+        if (i < 0 || i >= board.length) continue
         for (var j = cellJ - 1; j <= cellJ + 1; j++) {
-            if (j < 0 || j >= mat[i].length) continue
+            if (j < 0 || j >= board[i].length) continue
             if (i === cellI && j === cellJ) continue
         }
     }
